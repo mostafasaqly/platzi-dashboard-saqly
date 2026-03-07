@@ -7,7 +7,7 @@ export const authGuard: CanMatchFn = (): boolean | UrlTree => {
   const authSession = inject(AuthSessionService);
   const router = inject(Router);
 
-  return authSession.isAuthenticated()
+  return authSession.hasAccessToken()
     ? true
     : router.createUrlTree(['/', APP_ROUTES.auth, 'login']);
 };

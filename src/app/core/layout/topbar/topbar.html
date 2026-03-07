@@ -6,10 +6,40 @@
 
   <div class="topbar__actions">
     <span class="theme-label">Dark mode</span>
+
     <p-toggleswitch
       [ngModel]="themeService.mode() === 'dark'"
       (ngModelChange)="themeService.toggle()"
     />
-    <p-avatar label="A" shape="circle" />
+
+    <div class="topbar__user">
+      <p-avatar
+        [image]="authFacade.avatarUrl() || undefined"
+        [label]="!authFacade.avatarUrl() ? authFacade.userInitial() : undefined"
+        shape="circle"
+      />
+      <div class="topbar__identity">
+        <strong>{{ authFacade.displayName() }}</strong>
+        <span>{{ authFacade.user()?.email || 'Signed user' }}</span>
+      </div>
+    </div>
+
+    <button
+      pButton
+      type="button"
+      icon="pi pi-cog"
+      class="p-button-text"
+      (click)="goToSettings()"
+      aria-label="Settings"
+    ></button>
+
+    <button
+      pButton
+      type="button"
+      label="Logout"
+      icon="pi pi-sign-out"
+      class="p-button-outlined"
+      (click)="onLogout()"
+    ></button>
   </div>
 </header>

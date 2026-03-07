@@ -2,11 +2,11 @@ import { Component, inject } from '@angular/core';
 import { LoadingService } from '../../services/loading.service';
 import { UI_PRIMENG } from '../../../shared/ui/ui-primeng';
 import { SidebarComponent } from '../sidebar/sidebar';
-import { TopbarComponent } from '../topbar/topbar';
+import { Topbar } from '../topbar/topbar';
 
 @Component({
   selector: 'app-shell',
-  imports: [SidebarComponent, TopbarComponent, ...UI_PRIMENG],
+  imports: [SidebarComponent, Topbar, ...UI_PRIMENG],
   templateUrl: './app-shell.html',
   styleUrl: './app-shell.scss',
 })

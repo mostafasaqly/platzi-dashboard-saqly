@@ -7,7 +7,7 @@ export const guestGuard: CanMatchFn = (): boolean | UrlTree => {
   const authSession = inject(AuthSessionService);
   const router = inject(Router);
 
-  return authSession.isAuthenticated()
+  return authSession.hasAccessToken()
     ? router.createUrlTree(['/', APP_ROUTES.dashboard])
     : true;
 };

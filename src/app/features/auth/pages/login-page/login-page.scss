@@ -1,29 +1,218 @@
+:host {
+  display: block;
+  min-height: 100dvh;
+}
+
 .auth-page {
+  position: relative;
   min-height: 100dvh;
   display: grid;
   place-items: center;
-  padding: 1.5rem;
-  background:
-    radial-gradient(circle at top left, color-mix(in srgb, var(--brand-500) 10%, white), transparent 35%),
-    var(--app-bg);
+  padding: clamp(1rem, 2vw, 2rem);
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--app-bg);
 
-  &__card {
-    width: min(100%, 28rem);
-    padding: 2rem;
-    border: 1px solid var(--surface-border);
-    border-radius: var(--radius-2xl);
-    background: var(--surface-0);
-    box-shadow: var(--shadow-lg);
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    inset: auto;
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(10px);
+  }
 
+  /* main ambient glow */
+  &::before {
+    width: min(55rem, 80vw);
+    height: min(55rem, 80vw);
+    left: -18rem;
+    top: -12rem;
+    border-radius: 50%;
+    background:
+      radial-gradient(
+        circle,
+        color-mix(in srgb, var(--brand-500) 18%, white) 0%,
+        color-mix(in srgb, var(--brand-500) 10%, transparent) 38%,
+        transparent 68%
+      );
+    opacity: 0.95;
+  }
+
+  /* subtle secondary glow */
+  &::after {
+    width: 28rem;
+    height: 28rem;
+    right: -10rem;
+    bottom: -10rem;
+    border-radius: 50%;
+    background:
+      radial-gradient(
+        circle,
+        color-mix(in srgb, var(--brand-500) 10%, white) 0%,
+        transparent 70%
+      );
+    opacity: 0.45;
+  }
+
+  &__panel {
+    width: min(100%, 29rem);
+    display: grid;
+    gap: 1.5rem;
+    padding: clamp(1.35rem, 2vw, 2rem);
+    border-radius: 1.75rem;
+    border: 1px solid color-mix(in srgb, var(--surface-border) 75%, transparent);
+    background: color-mix(in srgb, var(--surface-0) 92%, transparent);
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.18),
+      0 1px 0 rgba(255, 255, 255, 0.04) inset;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  &__intro {
+    display: grid;
+    gap: 1.15rem;
+  }
+}
+
+.auth-copy {
+  display: grid;
+  gap: 0.65rem;
+
+  h1 {
+    margin: 0;
+    font-size: clamp(1.9rem, 3vw, 2.35rem);
+    line-height: 1.06;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--text-strong);
+    max-width: 12ch;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+    max-width: 38ch;
+  }
+}
+
+.auth-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.auth-field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.auth-error {
+  color: var(--danger-500);
+  font-size: 0.8rem;
+  line-height: 1.35;
+  padding-inline-start: 0.15rem;
+}
+
+.auth-server-error {
+  padding: 0.875rem 1rem;
+  border-radius: 0.95rem;
+  border: 1px solid color-mix(in srgb, var(--danger-500) 22%, transparent);
+  background: color-mix(in srgb, var(--danger-500) 8%, var(--surface-0));
+  color: var(--danger-500);
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.auth-submit {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+/* PrimeNG tuning */
+:host ::ng-deep {
+  .auth-input,
+  .auth-password .p-password-input,
+  .auth-password.p-password,
+  .auth-password .p-inputtext {
+    width: 100%;
+  }
+
+  .auth-input,
+  .auth-password .p-password-input {
+    min-height: 3rem;
+    border-radius: 0.8rem;
+  }
+
+  .p-floatlabel:has(.auth-input) label,
+  .p-floatlabel:has(.auth-password) label {
+    color: var(--text-muted);
+  }
+
+  .p-floatlabel input:focus ~ label,
+  .p-floatlabel .p-inputwrapper-focus ~ label,
+  .p-floatlabel .p-filled ~ label {
+    color: var(--brand-500);
+  }
+
+  .auth-password.p-password {
+    display: block;
+  }
+
+  .auth-password .p-password-input {
+    width: 100%;
+    padding-inline-end: 2.75rem;
+  }
+
+  .auth-password .p-password-toggle-mask-icon {
+    color: var(--text-muted);
+  }
+
+  .auth-submit.p-button {
+    width: 100%;
+    min-height: 3rem;
+    border-radius: 0.9rem;
+    font-weight: 700;
+  }
+}
+
+/* small screens */
+@media (max-width: 640px) {
+  .auth-page {
+    align-items: center;
+    padding: 1rem;
+
+    &__panel {
+      width: 100%;
+      padding: 1.25rem;
+      border-radius: 1.35rem;
+    }
+
+    &::before {
+      left: -22rem;
+      top: -8rem;
+      width: 42rem;
+      height: 42rem;
+      opacity: 0.85;
+    }
+
+    &::after {
+      display: none;
+    }
+  }
+
+  .auth-copy {
     h1 {
-      margin: 0 0 0.5rem;
-      font-size: 1.5rem;
-      color: var(--text-strong);
+      font-size: 1.9rem;
+      max-width: 100%;
     }
 
     p {
-      margin: 0 0 1rem;
-      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 100%;
     }
   }
 }

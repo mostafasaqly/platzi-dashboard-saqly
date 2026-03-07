@@ -1,13 +1,81 @@
 <section class="auth-page">
-  <div class="auth-page__card">
-    <app-logo />
+  <div class="auth-page__panel">
+    <div class="auth-page__intro">
+      <app-logo />
 
-    <p-divider />
+      <div class="auth-copy">
+        <h1>Sign in to your admin workspace</h1>
+        <p>
+          Secure access to products, categories, users, uploads, and dashboard operations.
+        </p>
+      </div>
+    </div>
 
-    <h1>Welcome back</h1>
-    <p>This is the final production shell. Auth logic comes in Phase 3.</p>
+    <form class="auth-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="auth-field">
+        <p-floatlabel variant="on">
+          <input
+            pInputText
+            id="email"
+            type="email"
+            formControlName="email"
+            autocomplete="username"
+            class="auth-input"
+          />
+          <label for="email">Email</label>
+        </p-floatlabel>
 
-    <button pButton type="button" label="Login module in Phase 3"
-    (click)="login()"></button>
+        @if (emailControl.touched && emailControl.invalid) {
+          <small class="auth-error">
+            @if (emailControl.hasError('required')) {
+              Email is required.
+            } @else if (emailControl.hasError('email')) {
+              Enter a valid email address.
+            }
+          </small>
+        }
+      </div>
+
+      <div class="auth-field">
+        <p-floatlabel variant="on">
+          <p-password
+            inputId="password"
+            formControlName="password"
+            [feedback]="false"
+            [toggleMask]="true"
+            [fluid]="true"
+            autocomplete="current-password"
+            styleClass="auth-password"
+          />
+          <label for="password">Password</label>
+        </p-floatlabel>
+
+        @if (passwordControl.touched && passwordControl.invalid) {
+          <small class="auth-error">
+            @if (passwordControl.hasError('required')) {
+              Password is required.
+            } @else if (passwordControl.hasError('minlength')) {
+              Password must be at least 6 characters.
+            }
+          </small>
+        }
+      </div>
+
+      @if (authFacade.loginState().status === 'error') {
+        <div class="auth-server-error">
+          {{ authFacade.loginState().errorMessage }}
+        </div>
+      }
+
+      <button
+        pButton
+        type="submit"
+        label="Sign in"
+        icon="pi pi-sign-in"
+        [loading]="submitted()"
+        [disabled]="form.invalid || submitted()"
+        class="auth-submit"
+      ></button>
+    </form>
   </div>
 </section>
