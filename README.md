@@ -363,7 +363,7 @@ Authentication System
 
 ---
 
-### Phase 3
+### Phase 3 --- Finished
 
 Dashboard Module
 
