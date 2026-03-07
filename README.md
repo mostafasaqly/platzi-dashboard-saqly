@@ -352,7 +352,7 @@ Foundation & Architecture
 
 ---
 
-### Phase 2
+### Phase 2 --- Finished
 
 Authentication System
 
