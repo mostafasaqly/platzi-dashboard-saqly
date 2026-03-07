@@ -1,0 +1,15 @@
+<header class="topbar">
+  <div>
+    <h1>Admin Dashboard</h1>
+    <p>Production-grade Angular 21 + PrimeNG 21</p>
+  </div>
+
+  <div class="topbar__actions">
+    <span class="theme-label">Dark mode</span>
+    <p-toggleswitch
+      [ngModel]="themeService.mode() === 'dark'"
+      (ngModelChange)="themeService.toggle()"
+    />
+    <p-avatar label="A" shape="circle" />
+  </div>
+</header>

@@ -1,0 +1,45 @@
+.sidebar {
+  height: 100dvh;
+  position: sticky;
+  top: 0;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  width: 17rem;
+  border-inline-end: 1px solid var(--surface-border);
+  background: var(--surface-0);
+
+  &__brand {
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--surface-border);
+  }
+
+  &__nav {
+    display: grid;
+    gap: 0.375rem;
+    padding: 1rem 0.75rem;
+    align-content: start;
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 2.875rem;
+    padding: 0 0.875rem;
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: var(--text-soft);
+    transition: background-color 120ms ease, color 120ms ease;
+
+    &:hover {
+      background: var(--surface-1);
+      color: var(--text-strong);
+    }
+
+    &.is-active {
+      background: color-mix(in srgb, var(--brand-500) 12%, white);
+      color: var(--brand-700);
+      font-weight: 600;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+<aside class="sidebar">
+  <div class="sidebar__brand">
+    <app-logo />
+  </div>
+
+  <nav class="sidebar__nav">
+    @for (item of items; track item.route) {
+      <a
+        [routerLink]="item.route"
+        routerLinkActive="is-active"
+        class="sidebar__link"
+      >
+        <i [class]="item.icon"></i>
+        <span>{{ item.label }}</span>
+      </a>
+    }
+  </nav>
+</aside>

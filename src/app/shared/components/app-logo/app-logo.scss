@@ -1,0 +1,37 @@
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+
+  &__mark {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.875rem;
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    background: var(--brand-500);
+    color: #fff;
+    box-shadow: var(--shadow-sm);
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+
+    strong {
+      font-size: 0.95rem;
+      color: var(--text-strong);
+    }
+
+    span {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+  }
+
+  &--compact {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,9 @@
+<div class="logo" [class.logo--compact]="compact()">
+  <div class="logo__mark">P</div>
+  @if (!compact()) {
+    <div class="logo__text">
+      <strong>Platzi Admin</strong>
+      <span>Angular 21 Dashboard</span>
+    </div>
+  }
+</div>

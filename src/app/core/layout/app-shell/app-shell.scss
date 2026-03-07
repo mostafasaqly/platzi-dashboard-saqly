@@ -1,0 +1,29 @@
+.shell {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  background: var(--app-bg);
+
+  &__content {
+    min-width: 0;
+    display: grid;
+    grid-template-rows: auto 1fr;
+  }
+
+  &__main {
+    padding: 1.5rem;
+  }
+
+  &__loading {
+    position: fixed;
+    inset: 1rem 1rem auto auto;
+    z-index: 1200;
+    display: grid;
+    place-items: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--surface-0) 90%, white);
+    box-shadow: var(--shadow-md);
+  }
+}

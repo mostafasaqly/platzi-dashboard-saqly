@@ -1,0 +1,20 @@
+<div class="shell">
+  <app-sidebar />
+
+  <div class="shell__content">
+    <app-topbar />
+
+    @if (loadingService.isLoading()) {
+      <div class="shell__loading">
+        <p-progressspinner
+          ariaLabel="Application loading"
+          strokeWidth="4"
+        />
+      </div>
+    }
+
+    <main class="shell__main">
+      <router-outlet />
+    </main>
+  </div>
+</div>

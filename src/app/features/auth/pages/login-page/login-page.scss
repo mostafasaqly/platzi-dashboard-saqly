@@ -1,0 +1,29 @@
+.auth-page {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background:
+    radial-gradient(circle at top left, color-mix(in srgb, var(--brand-500) 10%, white), transparent 35%),
+    var(--app-bg);
+
+  &__card {
+    width: min(100%, 28rem);
+    padding: 2rem;
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-2xl);
+    background: var(--surface-0);
+    box-shadow: var(--shadow-lg);
+
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: 1.5rem;
+      color: var(--text-strong);
+    }
+
+    p {
+      margin: 0 0 1rem;
+      color: var(--text-muted);
+    }
+  }
+}

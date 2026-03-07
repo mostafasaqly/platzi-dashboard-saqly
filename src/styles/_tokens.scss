@@ -1,0 +1,55 @@
+:root {
+  --app-bg: #f6f8fb;
+
+  --surface-0: #ffffff;
+  --surface-1: #f8fafc;
+  --surface-2: #eef2f7;
+  --surface-border: #d9e1ec;
+
+  --text-strong: #152033;
+  --text-soft: #334155;
+  --text-muted: #64748b;
+
+  --brand-50: #eef4ff;
+  --brand-100: #d9e8ff;
+  --brand-500: #3b82f6;
+  --brand-600: #2563eb;
+  --brand-700: #1d4ed8;
+
+  --success-500: #16a34a;
+  --warning-500: #d97706;
+  --danger-500: #dc2626;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+
+  --shadow-sm: 0 4px 10px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 10px 24px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 20px 48px rgba(15, 23, 42, 0.12);
+}
+
+.app-dark {
+  --app-bg: #0b1220;
+
+  --surface-0: #0f172a;
+  --surface-1: #162033;
+  --surface-2: #1d2940;
+  --surface-border: #2a3954;
+
+  --text-strong: #f8fafc;
+  --text-soft: #cbd5e1;
+  --text-muted: #94a3b8;
+
+  --brand-50: #15284e;
+  --brand-100: #18356c;
+  --brand-500: #60a5fa;
+  --brand-600: #3b82f6;
+  --brand-700: #93c5fd;
+
+  --shadow-sm: 0 4px 10px rgba(2, 6, 23, 0.3);
+  --shadow-md: 0 10px 24px rgba(2, 6, 23, 0.4);
+  --shadow-lg: 0 20px 48px rgba(2, 6, 23, 0.5);
+}

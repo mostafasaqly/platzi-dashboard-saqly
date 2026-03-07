@@ -1,0 +1,19 @@
+.placeholder {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  border: 1px dashed var(--surface-border);
+  border-radius: var(--radius-xl);
+  background: var(--surface-1);
+
+  h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--text-strong);
+  }
+
+  p {
+    margin: 0;
+    color: var(--text-muted);
+  }
+}
