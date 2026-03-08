@@ -1,0 +1,120 @@
+<section class="users-page">
+  <div class="users-page__header">
+    <div>
+      <h1>Users</h1>
+      <p>Manage users, roles, and account records.</p>
+    </div>
+
+    <button
+      pButton
+      type="button"
+      label="New User"
+      icon="pi pi-plus"
+      (click)="goToCreate()"
+    ></button>
+  </div>
+
+  <p-card class="users-toolbar">
+    <div class="users-field">
+      <label for="userSearch">Search</label>
+      <input
+        id="userSearch"
+        pInputText
+        [ngModel]="searchValue()"
+        (ngModelChange)="onSearchChange($event)"
+        placeholder="Search by name, email, or role"
+      />
+    </div>
+  </p-card>
+
+  @if (usersFacade.isLoading()) {
+    <div class="users-grid">
+      @for (item of [1, 2, 3, 4, 5, 6]; track item) {
+        <p-card class="user-card">
+          <div class="user-card__skeleton">
+            <p-skeleton shape="circle" size="4rem" />
+            <div>
+              <p-skeleton width="10rem" height="1rem" />
+              <div style="height: .5rem;"></div>
+              <p-skeleton width="8rem" height=".9rem" />
+            </div>
+          </div>
+        </p-card>
+      }
+    </div>
+  } @else if (usersFacade.hasError()) {
+    <p-card class="users-state-card">
+      <div class="users-state">
+        <i class="pi pi-exclamation-triangle"></i>
+        <h2>Failed to load users</h2>
+        <p>{{ usersFacade.listState().errorMessage }}</p>
+
+        <button
+          pButton
+          type="button"
+          label="Try Again"
+          icon="pi pi-refresh"
+          (click)="usersFacade.loadUsers()"
+        ></button>
+      </div>
+    </p-card>
+  } @else if (usersFacade.isEmpty()) {
+    <p-card class="users-state-card">
+      <div class="users-state">
+        <i class="pi pi-inbox"></i>
+        <h2>No users found</h2>
+        <p>Create a user or change the search term.</p>
+      </div>
+    </p-card>
+  } @else {
+    <div class="users-grid">
+      @for (user of usersFacade.filteredUsers(); track trackByUserId($index, user)) {
+        <p-card class="user-card">
+          <div class="user-card__top">
+            <p-avatar
+              [image]="usersFacade.avatarPreview(user.avatar)"
+              shape="circle"
+              size="xlarge"
+            ></p-avatar>
+
+            <div class="user-card__identity">
+              <strong>{{ user.name }}</strong>
+              <span>{{ user.email }}</span>
+            </div>
+          </div>
+
+          <div class="user-card__meta">
+            <p-tag
+              [value]="user.role"
+              [severity]="usersFacade.roleSeverity(user.role)"
+            ></p-tag>
+          </div>
+
+          <div class="user-card__actions">
+            <button
+              pButton
+              type="button"
+              label="Edit"
+              icon="pi pi-pencil"
+              [outlined]="true"
+              size="small"
+              (click)="goToEdit(user)"
+            ></button>
+
+            <button
+              pButton
+              type="button"
+              label="Delete"
+              icon="pi pi-trash"
+              severity="danger"
+              [outlined]="true"
+              size="small"
+              [loading]="usersFacade.isSubmitting()"
+              (click)="deleteUser(user)"
+            ></button>
+          </div>
+        </p-card>
+      }
+    </div>
+  }
+</section>

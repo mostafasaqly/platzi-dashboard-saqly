@@ -394,7 +394,7 @@ Products Management
 
 ---
 
-### Phase 6
+### Phase 6 --- Finished
 
 Users & Categories
 
@@ -410,11 +410,6 @@ File Upload System
 * image uploads
 * preview
 * storage handling
-
----
-
-### Phase 8
-
 Settings Module
 
 * profile
