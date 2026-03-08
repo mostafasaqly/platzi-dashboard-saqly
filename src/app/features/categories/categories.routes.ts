@@ -1,9 +1,18 @@
 import { Routes } from '@angular/router';
-import { CategoriesPage } from './pages/categories-page/categories-page';
+import { CategoryFormPage } from './pages/category-form-page/category-form-page';
+import { CategoriesListPage } from './pages/categories-list-page/categories-list-page';
 
 export default [
   {
-    path: '',
-    component: CategoriesPage,
-  },
+      path: '',
+      component: CategoriesListPage,
+    },
+    {
+      path: 'new',
+      component: CategoryFormPage,
+    },
+    {
+      path: ':id/edit',
+      component: CategoryFormPage,
+    },
 ] satisfies Routes;

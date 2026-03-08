@@ -15,7 +15,8 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
-
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { PaginatorModule } from 'primeng/paginator';
 export const UI_PRIMENG = [
   CommonModule,
   FormsModule,
@@ -35,4 +36,6 @@ export const UI_PRIMENG = [
   TagModule,
   ToastModule,
   ToggleSwitchModule,
+  ConfirmDialogModule,
+  PaginatorModule
 ] as const;

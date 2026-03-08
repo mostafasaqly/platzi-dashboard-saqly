@@ -1,0 +1,95 @@
+.category-form-page {
+  display: grid;
+  gap: 1.5rem;
+
+  &__header {
+    h1 {
+      margin: 0;
+      font-size: 1.75rem;
+      color: var(--text-strong);
+    }
+
+    p {
+      margin: 0.35rem 0 0;
+      color: var(--text-muted);
+    }
+  }
+}
+
+:host ::ng-deep .category-form-card {
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-xl);
+  background: var(--surface-0);
+  box-shadow: var(--shadow-sm);
+}
+
+:host ::ng-deep .category-form-card .p-card-body {
+  padding: 1.5rem;
+}
+
+.category-form {
+  display: grid;
+  gap: 1.25rem;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  &__server-error {
+    padding: 0.875rem 1rem;
+    border: 1px solid color-mix(in srgb, var(--danger-500) 22%, white);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--danger-500) 8%, white);
+    color: var(--danger-500);
+    font-size: 0.875rem;
+  }
+}
+
+.category-field {
+  display: grid;
+  gap: 0.5rem;
+
+  label {
+    color: var(--text-soft);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  &__error {
+    color: var(--danger-500);
+    font-size: 0.8rem;
+  }
+}
+
+.category-form-state {
+  min-height: 16rem;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  gap: 0.75rem;
+
+  i {
+    font-size: 2rem;
+    color: var(--warning-500);
+  }
+
+  h2 {
+    margin: 0;
+    color: var(--text-strong);
+  }
+}
+
+@media (max-width: 800px) {
+  .category-form__grid {
+    grid-template-columns: 1fr;
+  }
+}

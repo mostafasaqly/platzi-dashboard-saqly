@@ -9,10 +9,11 @@ import { APP_SETTINGS, appSettings } from './core/config/app.settings';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { errorInterceptor } from './core/interceptors/error.interceptor';
 import { loadingInterceptor } from './core/interceptors/loading.interceptor';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 export const appConfig: ApplicationConfig = {
   providers: [
     MessageService,
+    ConfirmationService,
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(
