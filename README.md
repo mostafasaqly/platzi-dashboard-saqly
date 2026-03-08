@@ -383,7 +383,7 @@ Dashboard Module
 
 ---
 
-### Phase 4
+### Phase 5
 
 Products Management
 
@@ -394,7 +394,7 @@ Products Management
 
 ---
 
-### Phase 5
+### Phase 6
 
 Users & Categories
 
@@ -403,7 +403,7 @@ Users & Categories
 
 ---
 
-### Phase 6
+### Phase 7
 
 File Upload System
 
@@ -413,7 +413,7 @@ File Upload System
 
 ---
 
-### Phase 7
+### Phase 8
 
 Settings Module
 
