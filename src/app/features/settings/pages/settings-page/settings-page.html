@@ -1,4 +1,68 @@
-<app-page-placeholder
-  title="Settings"
-  description="Theme, preferences, and persisted settings start in Phase 9."
-/>
+<section class="settings-page">
+  <div class="settings-page__header">
+    <div>
+      <h1>Settings</h1>
+      <p>Manage dashboard appearance and local application preferences.</p>
+    </div>
+  </div>
+
+  <div class="settings-grid">
+    <p-card class="settings-card">
+      <div class="settings-card__head">
+        <h2>Appearance</h2>
+        <p>Theme and display density preferences.</p>
+      </div>
+
+      <div class="settings-form">
+        <div class="settings-field">
+          <label for="themeMode">Theme Mode</label>
+          <select
+            id="themeMode"
+            class="settings-native-select"
+            [ngModel]="themeMode()"
+            (ngModelChange)="onThemeModeChange($event)"
+          >
+            <option value="light">light</option>
+            <option value="dark">dark</option>
+          </select>
+        </div>
+
+        <div class="settings-field">
+          <label for="density">Density</label>
+          <select
+            id="density"
+            class="settings-native-select"
+            [ngModel]="density()"
+            (ngModelChange)="onDensityChange($event)"
+          >
+            <option value="comfortable">comfortable</option>
+            <option value="compact">compact</option>
+          </select>
+        </div>
+      </div>
+    </p-card>
+
+    <p-card class="settings-card">
+      <div class="settings-card__head">
+        <h2>Products Module</h2>
+        <p>Set the default page size for the products list.</p>
+      </div>
+
+      <div class="settings-form">
+        <div class="settings-field">
+          <label for="productsPageSize">Default Page Size</label>
+          <select
+            id="productsPageSize"
+            class="settings-native-select"
+            [ngModel]="productsPageSize()"
+            (ngModelChange)="onPageSizeChange($event)"
+          >
+            @for (size of pageSizes; track size) {
+              <option [ngValue]="size">{{ size }}</option>
+            }
+          </select>
+        </div>
+      </div>
+    </p-card>
+  </div>
+</section>

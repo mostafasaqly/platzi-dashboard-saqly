@@ -403,7 +403,7 @@ Users & Categories
 
 ---
 
-### Phase 7
+### Phase 7 --- Finished
 
 File Upload System
 

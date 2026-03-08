@@ -2,6 +2,7 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
 import { ApiError } from '../../../core/api/api-error.model';
+import { AppPreferencesService } from '../../../core/services/app-preferences.service';
 import { NotificationService } from '../../../core/services/notification.service';
 import { RequestState } from '../../../shared/models/request-state.model';
 import {
@@ -21,6 +22,7 @@ import { UpdateProductDto } from '../models/update-product.dto';
 export class ProductsFacade {
   private readonly productsApi = inject(ProductsApiService);
   private readonly notification = inject(NotificationService);
+  private readonly preferencesService = inject(AppPreferencesService);
 
   private readonly _products = signal<Product[]>([]);
   private readonly _categories = signal<ProductCategory[]>([]);
@@ -31,7 +33,7 @@ export class ProductsFacade {
   private readonly _searchTerm = signal('');
   private readonly _selectedCategoryId = signal<number | null>(null);
   private readonly _page = signal(1);
-  private readonly _pageSize = signal(10);
+  private readonly _pageSize = signal(this.preferencesService.productsPageSize());
 
   readonly products = this._products.asReadonly();
   readonly categories = this._categories.asReadonly();
@@ -81,6 +83,7 @@ export class ProductsFacade {
   }
 
   async loadProducts(): Promise<void> {
+    this._pageSize.set(this.preferencesService.productsPageSize());
     this._listState.set(loadingState());
 
     try {
@@ -193,7 +196,10 @@ export class ProductsFacade {
   }
 
   imagePreview(images: string[] | null | undefined): string {
-    return images?.find((image) => !!image?.trim()) || 'https://placehold.co/200x200?text=No+Image';
+    return (
+      images?.find((image) => !!image?.trim()) ||
+      'https://placehold.co/200x200?text=No+Image'
+    );
   }
 
   categoryName(categoryId: number): string {
