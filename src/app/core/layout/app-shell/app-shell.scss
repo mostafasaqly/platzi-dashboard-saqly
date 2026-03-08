@@ -8,6 +8,7 @@
     min-width: 0;
     display: grid;
     grid-template-rows: auto 1fr;
+    position: relative;
   }
 
   &__main {
@@ -16,14 +17,31 @@
 
   &__loading {
     position: fixed;
-    inset: 1rem 1rem auto auto;
+    inset: 0;
     z-index: 1200;
     display: grid;
     place-items: center;
-    width: 4rem;
-    height: 4rem;
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--surface-0) 90%, white);
+    background: color-mix(in srgb, var(--surface-0) 35%, transparent);
+    backdrop-filter: blur(2px);
+  }
+
+  &__loading-box {
+    width: 5rem;
+    height: 5rem;
+    display: grid;
+    place-items: center;
+    border-radius: 1rem;
+    background: color-mix(in srgb, var(--surface-0) 92%, white);
+    border: 1px solid var(--surface-border);
     box-shadow: var(--shadow-md);
   }
+}
+
+:host ::ng-deep .shell__loading .p-progressspinner {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+:host ::ng-deep .shell__loading .p-progressspinner-circle {
+  stroke: var(--brand-500) !important;
 }

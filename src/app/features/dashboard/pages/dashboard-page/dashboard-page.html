@@ -1,4 +1,210 @@
-<app-page-placeholder
-  title="Dashboard"
-  description="Dashboard widgets, KPIs, recent activity, and analytics start in Phase 4."
-/>
+<section class="dashboard-page">
+  @if (dashboardFacade.isRefreshing()) {
+    <div class="dashboard-screen-loader">
+      <div class="dashboard-screen-loader__box">
+        <i class="pi pi-spin pi-spinner"></i>
+      </div>
+    </div>
+  }
+
+  <div class="dashboard-page__header">
+    <div>
+      <h1>Dashboard Overview</h1>
+      <p>Live operational summary for products, categories, and users.</p>
+    </div>
+
+    <button
+      pButton
+      type="button"
+      label="Refresh"
+      icon="pi pi-refresh"
+      [disabled]="dashboardFacade.isRefreshing()"
+      (click)="dashboardFacade.load(true)"
+    ></button>
+  </div>
+
+  @if (dashboardFacade.isLoading()) {
+    <div class="dashboard-stats">
+      @for (item of [1, 2, 3, 4]; track item) {
+        <p-card class="dashboard-card dashboard-card--loading">
+          <p-skeleton width="6rem" height="1rem" />
+          <div style="height: 0.5rem"></div>
+          <p-skeleton width="8rem" height="2rem" />
+        </p-card>
+      }
+    </div>
+
+    <div class="dashboard-grid">
+      <p-card class="dashboard-panel">
+        <p-skeleton width="12rem" height="1.25rem" />
+        <div style="height: 1rem"></div>
+        <p-skeleton width="100%" height="20rem" />
+      </p-card>
+
+      <p-card class="dashboard-panel">
+        <p-skeleton width="10rem" height="1.25rem" />
+        <div style="height: 1rem"></div>
+        @for (item of [1, 2, 3, 4, 5, 6]; track item) {
+          <div class="dashboard-list-skeleton">
+            <p-skeleton shape="circle" size="3rem" />
+            <div class="dashboard-list-skeleton__content">
+              <p-skeleton width="70%" height="1rem" />
+              <p-skeleton width="40%" height=".9rem" />
+            </div>
+          </div>
+        }
+      </p-card>
+    </div>
+  } @else if (dashboardFacade.hasError()) {
+    <p-card class="dashboard-panel dashboard-panel--error">
+      <div class="dashboard-error">
+        <i class="pi pi-exclamation-triangle"></i>
+        <div>
+          <h2>Dashboard failed to load</h2>
+          <p>{{ dashboardFacade.state().errorMessage }}</p>
+        </div>
+        <button
+          pButton
+          type="button"
+          label="Try again"
+          icon="pi pi-refresh"
+          (click)="dashboardFacade.load()"
+        ></button>
+      </div>
+    </p-card>
+  } @else if (dashboardFacade.isEmpty()) {
+    <p-card class="dashboard-panel">
+      <div class="dashboard-empty">
+        <i class="pi pi-inbox"></i>
+        <h2>No dashboard data available</h2>
+        <p>There is currently no data to visualize.</p>
+      </div>
+    </p-card>
+  } @else {
+    <div class="dashboard-stats">
+      @for (card of dashboardFacade.statCards(); track card.label) {
+        <p-card class="dashboard-card">
+          <div class="dashboard-stat" [class]="statToneClass(card.tone)">
+            <div class="dashboard-stat__icon">
+              <i [class]="card.icon"></i>
+            </div>
+
+            <div class="dashboard-stat__content">
+              <span>{{ card.label }}</span>
+              <strong>{{ card.value }}</strong>
+            </div>
+          </div>
+        </p-card>
+      }
+    </div>
+
+    <div class="dashboard-grid">
+
+      <p-card class="dashboard-panel">
+        <div class="dashboard-panel__head">
+          <div>
+            <h2>Recent Users</h2>
+            <p>Latest registered accounts</p>
+          </div>
+        </div>
+
+        <div class="dashboard-list">
+          @for (user of dashboardFacade.recentUsers(); track user.id) {
+            <article class="dashboard-item">
+              <p-avatar
+                [image]="userAvatar(user.avatar)"
+                [label]="!user.avatar ? user.name.charAt(0).toUpperCase() : undefined"
+                shape="circle"
+                size="large"
+              >
+              </p-avatar>
+
+              <div class="dashboard-item__content">
+                <strong>{{ user.name }}</strong>
+                <span>{{ user.email }}</span>
+              </div>
+
+              <div class="dashboard-item__meta">
+                <p-tag [value]="user.role" [severity]="userSeverity(user.role)"></p-tag>
+              </div>
+            </article>
+          }
+        </div>
+      </p-card>
+      <p-card class="dashboard-panel">
+        <div class="dashboard-panel__head">
+          <div>
+            <h2>Recent Products</h2>
+            <p>Latest products from the catalog</p>
+          </div>
+        </div>
+
+        <div class="dashboard-list">
+          @for (product of dashboardFacade.recentProducts(); track product.id) {
+            <article class="dashboard-item">
+              <img
+                class="dashboard-item__thumb"
+                [src]="productImage(product.images)"
+                [alt]="product.title"
+                (error)="onImageError($event, productFallback)"
+              />
+
+              <div class="dashboard-item__content">
+                <strong>{{ product.title }}</strong>
+                <span>{{ product.category.name }}</span>
+              </div>
+
+              <div class="dashboard-item__meta">
+                <p-tag [value]="'$' + product.price"></p-tag>
+              </div>
+            </article>
+          }
+        </div>
+      </p-card>
+    </div>
+
+    <div class="dashboard-grid">
+
+
+      <p-card class="dashboard-panel">
+        <div class="dashboard-panel__head">
+          <div>
+            <h2>Category Distribution</h2>
+            <p>Top dashboard categories snapshot</p>
+          </div>
+        </div>
+
+        <div class="dashboard-chart">
+          <p-chart
+            type="doughnut"
+            [data]="dashboardFacade.categoryChartData()"
+            [options]="dashboardFacade.categoryChartOptions()"
+            ariaLabel="Category distribution chart"
+          ></p-chart>
+        </div>
+      </p-card>
+
+      <p-card class="dashboard-panel">
+        <div class="dashboard-panel__head">
+          <div>
+            <h2>Active Categories</h2>
+            <p>Quick category summary</p>
+          </div>
+        </div>
+
+        <div class="dashboard-categories">
+          @for (category of dashboardFacade.categories(); track category.id) {
+            <div class="dashboard-category-chip">
+              <img
+                [src]="categoryImage(category.image)"
+                [alt]="category.name"
+                (error)="onImageError($event, categoryFallback)"
+              />
+              <span>{{ category.name }}</span>
+            </div>
+          }
+        </div>
+      </p-card>
+    </div>
+  }
+</section>

@@ -6,10 +6,12 @@
 
     @if (loadingService.isLoading()) {
       <div class="shell__loading">
-        <p-progressspinner
-          ariaLabel="Application loading"
-          strokeWidth="4"
-        />
+        <div class="shell__loading-box">
+          <p-progressspinner
+            ariaLabel="Application loading"
+            strokeWidth="4"
+          />
+        </div>
       </div>
     }
 
