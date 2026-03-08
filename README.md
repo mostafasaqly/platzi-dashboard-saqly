@@ -383,7 +383,7 @@ Dashboard Module
 
 ---
 
-### Phase 4 --- Finished
+### Phase 5 --- Finished
 
 Products Management
 
