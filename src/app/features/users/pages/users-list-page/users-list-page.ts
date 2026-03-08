@@ -9,6 +9,11 @@ import { UsersFacade } from '../../facades/users.facade';
 import { PageHeader } from '../../../../shared/components/page-header/page-header';
 import { SectionCard } from '../../../../shared/components/section-card/section-card';
 import { StateCard } from '../../../../shared/components/state-card/state-card';
+import {
+  IMAGE_FALLBACKS,
+  resolveAvatarLabel,
+  resolveImageUrl,
+} from '../../../../shared/utils/media.util';
 
 @Component({
   selector: 'app-users-list-page',
@@ -27,6 +32,7 @@ export class UsersListPage {
 
   protected readonly first = signal(0);
   protected readonly rows = signal(6);
+  protected readonly imageFallbacks = IMAGE_FALLBACKS;
 
   protected readonly totalRecords = computed(
     () => this.usersFacade.filteredUsers().length
@@ -51,6 +57,15 @@ export class UsersListPage {
   protected onPageChange(event: PaginatorState): void {
     this.first.set(event.first ?? 0);
     this.rows.set(event.rows ?? 6);
+  }
+
+  protected userAvatar(avatar: string | null | undefined): string | undefined {
+    const resolved = resolveImageUrl(avatar, '');
+    return resolved || undefined;
+  }
+
+  protected userInitial(name: string | null | undefined): string {
+    return resolveAvatarLabel(name);
   }
 
   protected async goToCreate(): Promise<void> {

@@ -95,8 +95,8 @@
           @for (user of dashboardFacade.recentUsers(); track user.id) {
             <article class="dashboard-item">
               <p-avatar
-                [image]="user.avatar || undefined"
-                [label]="!user.avatar ? user.name.charAt(0).toUpperCase() : undefined"
+                [image]="userAvatar(user.avatar)"
+                [label]="!userAvatar(user.avatar) ? userInitial(user.name) : undefined"
                 shape="circle"
                 size="large"
               />
@@ -122,6 +122,7 @@
                 class="dashboard-item__thumb"
                 [src]="productImage(product.images)"
                 [alt]="product.title"
+                (error)="onImageError($event, imageFallbacks.product)"
               />
 
               <div class="dashboard-item__content">
@@ -156,7 +157,11 @@
         <div class="dashboard-categories">
           @for (category of dashboardFacade.categories(); track category.id) {
             <div class="dashboard-category-chip">
-              <img [src]="category.image" [alt]="category.name" />
+              <img
+                [src]="categoryImage(category.image)"
+                [alt]="category.name"
+                (error)="onImageError($event, imageFallbacks.category)"
+              />
               <span>{{ category.name }}</span>
             </div>
           }
