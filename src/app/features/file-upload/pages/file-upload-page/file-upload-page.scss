@@ -1,3 +1,113 @@
-:host {
-  display: block;
+.upload-page {
+  display: grid;
+  gap: 1.5rem;
+
+  &__header {
+    h1 {
+      margin: 0;
+      font-size: 1.75rem;
+      color: var(--text-strong);
+    }
+
+    p {
+      margin: 0.35rem 0 0;
+      color: var(--text-muted);
+    }
+  }
+}
+
+:host ::ng-deep .upload-card {
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-xl);
+  background: var(--surface-0);
+  box-shadow: var(--shadow-sm);
+}
+
+:host ::ng-deep .upload-card .p-card-body {
+  padding: 1.5rem;
+}
+
+.upload-form {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.upload-field {
+  display: grid;
+  gap: 0.5rem;
+
+  label {
+    color: var(--text-soft);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+}
+
+.upload-native-input {
+  width: 100%;
+  padding: 0.875rem;
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  background: var(--surface-0);
+  color: var(--text-strong);
+  font: inherit;
+}
+
+.upload-file-meta {
+  display: grid;
+  gap: 0.25rem;
+
+  strong {
+    color: var(--text-strong);
+  }
+
+  span {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+}
+
+.upload-preview {
+  img {
+    max-width: 100%;
+    max-height: 22rem;
+    object-fit: contain;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--surface-border);
+    background: var(--surface-1);
+  }
+}
+
+.upload-error {
+  padding: 0.875rem 1rem;
+  border: 1px solid color-mix(in srgb, var(--danger-500) 22%, white);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--danger-500) 8%, white);
+  color: var(--danger-500);
+  font-size: 0.875rem;
+}
+
+.upload-success {
+  padding: 1rem;
+  border: 1px solid color-mix(in srgb, var(--success-500) 22%, white);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--success-500) 8%, white);
+
+  h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.05rem;
+    color: var(--text-strong);
+  }
+
+  p {
+    margin: 0.25rem 0;
+    color: var(--text-soft);
+    word-break: break-word;
+  }
+}
+
+.upload-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }

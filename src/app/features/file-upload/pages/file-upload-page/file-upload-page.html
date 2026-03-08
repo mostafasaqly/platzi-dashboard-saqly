@@ -1,4 +1,73 @@
-<app-page-placeholder
-  title="File Upload"
-  description="Upload workflows and file handling start in Phase 8."
-/>
+<section class="upload-page">
+  <div class="upload-page__header">
+    <div>
+      <h1>File Upload</h1>
+      <p>Upload images or files and get a reusable remote URL.</p>
+    </div>
+  </div>
+
+  <p-card class="upload-card">
+    <div class="upload-form">
+      <div class="upload-field">
+        <label for="fileInput">Choose File</label>
+        <input
+          #fileInput
+          id="fileInput"
+          type="file"
+          class="upload-native-input"
+          (change)="onFileSelected($event)"
+        />
+      </div>
+
+      @if (fileUploadFacade.selectedFile(); as file) {
+        <div class="upload-file-meta">
+          <strong>{{ file.name }}</strong>
+          <span>{{ file.type || 'Unknown type' }}</span>
+          <span>{{ file.size }} bytes</span>
+        </div>
+      }
+
+      @if (fileUploadFacade.previewUrl()) {
+        <div class="upload-preview">
+          <img [src]="fileUploadFacade.previewUrl()!" alt="Preview" />
+        </div>
+      }
+
+      @if (fileUploadFacade.hasError()) {
+        <div class="upload-error">
+          {{ fileUploadFacade.state().errorMessage }}
+        </div>
+      }
+
+      @if (fileUploadFacade.hasUploadedFile()) {
+        <div class="upload-success">
+          <h2>Upload completed</h2>
+          <p><strong>File:</strong> {{ fileUploadFacade.uploadedFile()?.filename }}</p>
+          <p><strong>URL:</strong> {{ fileUploadFacade.uploadedFile()?.location }}</p>
+        </div>
+      }
+
+      <div class="upload-actions">
+        <button
+          pButton
+          type="button"
+          label="Upload"
+          icon="pi pi-upload"
+          [loading]="fileUploadFacade.isUploading()"
+          [disabled]="!fileUploadFacade.hasFile() || fileUploadFacade.isUploading()"
+          (click)="upload()"
+        ></button>
+
+        <button
+          pButton
+          type="button"
+          label="Clear"
+          icon="pi pi-times"
+          severity="secondary"
+          [outlined]="true"
+          (click)="clear()"
+        ></button>
+      </div>
+    </div>
+  </p-card>
+</section>
