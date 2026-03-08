@@ -67,54 +67,68 @@
       />
     </app-section-card>
   } @else {
-    <div class="users-grid">
-      @for (user of usersFacade.filteredUsers(); track trackByUserId($index, user)) {
-        <app-section-card>
-          <div class="user-card__top">
-            <p-avatar
-              [image]="usersFacade.avatarPreview(user.avatar)"
-              shape="circle"
-              size="xlarge"
-            ></p-avatar>
+    <div class="users-content">
+      <div class="users-grid">
+        @for (user of paginatedUsers(); track trackByUserId($index, user)) {
+          <app-section-card>
+            <div class="user-card">
+              <div class="user-card__top">
+                <p-avatar
+                  [image]="usersFacade.avatarPreview(user.avatar)"
+                  shape="circle"
+                  size="xlarge"
+                ></p-avatar>
 
-            <div class="user-card__identity">
-              <strong>{{ user.name }}</strong>
-              <span>{{ user.email }}</span>
+                <div class="user-card__identity">
+                  <strong>{{ user.name }}</strong>
+                  <span>{{ user.email }}</span>
+                </div>
+              </div>
+
+              <div class="user-card__meta">
+                <p-tag
+                  [value]="user.role"
+                  [severity]="usersFacade.roleSeverity(user.role)"
+                ></p-tag>
+              </div>
+
+              <div class="user-card__actions">
+                <button
+                  pButton
+                  type="button"
+                  label="Edit"
+                  icon="pi pi-pencil"
+                  [outlined]="true"
+                  size="small"
+                  (click)="goToEdit(user)"
+                ></button>
+
+                <button
+                  pButton
+                  type="button"
+                  label="Delete"
+                  icon="pi pi-trash"
+                  severity="danger"
+                  [outlined]="true"
+                  size="small"
+                  [loading]="usersFacade.isSubmitting()"
+                  (click)="requestDelete($event, user)"
+                ></button>
+              </div>
             </div>
-          </div>
+          </app-section-card>
+        }
+      </div>
 
-          <div class="user-card__meta">
-            <p-tag
-              [value]="user.role"
-              [severity]="usersFacade.roleSeverity(user.role)"
-            ></p-tag>
-          </div>
-
-          <div class="user-card__actions">
-            <button
-              pButton
-              type="button"
-              label="Edit"
-              icon="pi pi-pencil"
-              [outlined]="true"
-              size="small"
-              (click)="goToEdit(user)"
-            ></button>
-
-            <button
-              pButton
-              type="button"
-              label="Delete"
-              icon="pi pi-trash"
-              severity="danger"
-              [outlined]="true"
-              size="small"
-              [loading]="usersFacade.isSubmitting()"
-              (click)="requestDelete($event, user)"
-            ></button>
-          </div>
-        </app-section-card>
-      }
+      <div class="users-paginator">
+        <p-paginator
+          [first]="first()"
+          [rows]="rows()"
+          [totalRecords]="totalRecords()"
+          [rowsPerPageOptions]="[6, 9, 12, 18]"
+          (onPageChange)="onPageChange($event)"
+        ></p-paginator>
+      </div>
     </div>
   }
 </section>

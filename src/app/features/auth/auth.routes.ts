@@ -5,6 +5,7 @@ export default [
   {
     path: 'login',
     component: LoginPage,
+    title:'Login'
   },
   {
     path: '',

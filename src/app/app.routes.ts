@@ -47,7 +47,11 @@ export const appRoutes: Routes = [
     ],
   },
   {
+    path: 'not-found',
+    loadChildren: () => import('./features/not-found/not-found.routes'),
+  },
+  {
     path: '**',
-    redirectTo: APP_ROUTES.dashboard,
+    redirectTo: 'not-found',
   },
 ];

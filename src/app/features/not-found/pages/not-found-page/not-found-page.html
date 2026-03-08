@@ -1,0 +1,18 @@
+<section class="not-found-page">
+  <div class="not-found-page__box">
+    <span class="not-found-page__code">404</span>
+    <h1>Page not found</h1>
+    <p>The page you are looking for does not exist or has been moved.</p>
+
+    <div class="not-found-page__actions">
+      <a pButton routerLink="/dashboard" label="Go to Dashboard"></a>
+      <a
+        pButton
+        routerLink="/settings"
+        label="Open Settings"
+        severity="secondary"
+        [outlined]="true"
+      ></a>
+    </div>
+  </div>
+</section>

@@ -5,9 +5,9 @@ import { ConfirmService } from '../../../../core/services/confirm.service';
 import { UI_PRIMENG } from '../../../../shared/ui/ui-primeng';
 import { ProductsFacade } from '../../facades/products.facade';
 import { Product } from '../../models/product.model';
+import { PageHeader } from '../../../../shared/components/page-header/page-header';
 import { SectionCard } from '../../../../shared/components/section-card/section-card';
 import { StateCard } from '../../../../shared/components/state-card/state-card';
-import { PageHeader } from '../../../../shared/components/page-header/page-header';
 
 @Component({
   selector: 'app-products-list-page',
@@ -26,10 +26,6 @@ export class ProductsListPage {
 
   private readonly router = inject(Router);
   private readonly confirmService = inject(ConfirmService);
-
-  constructor() {
-    void this.productsFacade.initialize();
-  }
 
   protected async onSearch(): Promise<void> {
     this.productsFacade.setSearchTerm(this.searchValue());

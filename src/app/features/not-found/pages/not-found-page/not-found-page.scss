@@ -1,0 +1,43 @@
+.not-found-page {
+  min-height: calc(100dvh - 6rem);
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+
+  &__box {
+    width: min(100%, 36rem);
+    padding: 2rem;
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-2xl);
+    background: var(--surface-0);
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+  }
+
+  &__code {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    font-size: 4rem;
+    line-height: 1;
+    font-weight: 800;
+    color: var(--brand-600);
+  }
+
+  h1 {
+    margin: 0;
+    color: var(--text-strong);
+  }
+
+  p {
+    margin: 0.75rem 0 0;
+    color: var(--text-muted);
+  }
+
+  &__actions {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+}

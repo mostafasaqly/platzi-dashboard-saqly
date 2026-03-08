@@ -14,10 +14,20 @@
   }
 }
 
+.users-content {
+  display: grid;
+  gap: 1rem;
+}
+
 .users-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
+}
+
+.users-paginator {
+  display: flex;
+  justify-content: center;
 }
 
 .user-card {

@@ -29,11 +29,13 @@
     <div class="categories-grid">
       @for (item of [1, 2, 3, 4, 5, 6]; track item) {
         <app-section-card>
-          <p-skeleton width="100%" height="12rem" />
-          <div style="height: .75rem;"></div>
-          <p-skeleton width="60%" height="1rem" />
-          <div style="height: .75rem;"></div>
-          <p-skeleton width="100%" height="2.5rem" />
+          <div class="category-card category-card--skeleton">
+            <p-skeleton width="100%" height="12rem" />
+            <div style="height: .75rem;"></div>
+            <p-skeleton width="60%" height="1rem" />
+            <div style="height: .75rem;"></div>
+            <p-skeleton width="100%" height="2.5rem" />
+          </div>
         </app-section-card>
       }
     </div>
@@ -64,45 +66,59 @@
       />
     </app-section-card>
   } @else {
-    <div class="categories-grid">
-      @for (category of categoriesFacade.filteredCategories(); track trackByCategoryId($index, category)) {
-        <app-section-card>
-          <div class="category-card__media">
-            <img
-              [src]="categoriesFacade.imagePreview(category.image)"
-              [alt]="category.name"
-            />
-          </div>
+    <div class="categories-content">
+      <div class="categories-grid">
+        @for (category of paginatedCategories(); track trackByCategoryId($index, category)) {
+          <app-section-card>
+            <div class="category-card">
+              <div class="category-card__media">
+                <img
+                  [src]="categoriesFacade.imagePreview(category.image)"
+                  [alt]="category.name"
+                />
+              </div>
 
-          <div class="category-card__content">
-            <strong>{{ category.name }}</strong>
+              <div class="category-card__content">
+                <strong>{{ category.name }}</strong>
 
-            <div class="category-card__actions">
-              <button
-                pButton
-                type="button"
-                label="Edit"
-                icon="pi pi-pencil"
-                [outlined]="true"
-                size="small"
-                (click)="goToEdit(category)"
-              ></button>
+                <div class="category-card__actions">
+                  <button
+                    pButton
+                    type="button"
+                    label="Edit"
+                    icon="pi pi-pencil"
+                    [outlined]="true"
+                    size="small"
+                    (click)="goToEdit(category)"
+                  ></button>
 
-              <button
-                pButton
-                type="button"
-                label="Delete"
-                icon="pi pi-trash"
-                severity="danger"
-                [outlined]="true"
-                size="small"
-                [loading]="categoriesFacade.isSubmitting()"
-                (click)="requestDelete($event, category)"
-              ></button>
+                  <button
+                    pButton
+                    type="button"
+                    label="Delete"
+                    icon="pi pi-trash"
+                    severity="danger"
+                    [outlined]="true"
+                    size="small"
+                    [loading]="categoriesFacade.isSubmitting()"
+                    (click)="requestDelete($event, category)"
+                  ></button>
+                </div>
+              </div>
             </div>
-          </div>
-        </app-section-card>
-      }
+          </app-section-card>
+        }
+      </div>
+
+      <div class="categories-paginator">
+        <p-paginator
+          [first]="first()"
+          [rows]="rows()"
+          [totalRecords]="totalRecords()"
+          [rowsPerPageOptions]="[6, 9, 12, 18]"
+          (onPageChange)="onPageChange($event)"
+        ></p-paginator>
+      </div>
     </div>
   }
 </section>

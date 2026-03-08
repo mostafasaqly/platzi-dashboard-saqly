@@ -5,5 +5,6 @@ export default [
   {
     path: '',
     component: SettingsPage,
+    title:'Settings'
   },
 ] satisfies Routes;

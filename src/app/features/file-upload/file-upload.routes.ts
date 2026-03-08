@@ -5,5 +5,6 @@ export default [
   {
     path: '',
     component: FileUploadPage,
+    title: 'File Upload'
   },
 ] satisfies Routes;
