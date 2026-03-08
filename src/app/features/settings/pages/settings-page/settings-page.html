@@ -1,18 +1,14 @@
 <section class="settings-page">
-  <div class="settings-page__header">
-    <div>
-      <h1>Settings</h1>
-      <p>Manage dashboard appearance and local application preferences.</p>
-    </div>
-  </div>
+  <app-page-header
+    title="Settings"
+    description="Manage dashboard appearance and local application preferences."
+  />
 
   <div class="settings-grid">
-    <p-card class="settings-card">
-      <div class="settings-card__head">
-        <h2>Appearance</h2>
-        <p>Theme and display density preferences.</p>
-      </div>
-
+    <app-section-card
+      title="Appearance"
+      description="Theme and display density preferences."
+    >
       <div class="settings-form">
         <div class="settings-field">
           <label for="themeMode">Theme Mode</label>
@@ -40,14 +36,12 @@
           </select>
         </div>
       </div>
-    </p-card>
+    </app-section-card>
 
-    <p-card class="settings-card">
-      <div class="settings-card__head">
-        <h2>Products Module</h2>
-        <p>Set the default page size for the products list.</p>
-      </div>
-
+    <app-section-card
+      title="Products Module"
+      description="Set the default page size for the products list."
+    >
       <div class="settings-form">
         <div class="settings-field">
           <label for="productsPageSize">Default Page Size</label>
@@ -63,6 +57,6 @@
           </select>
         </div>
       </div>
-    </p-card>
+    </app-section-card>
   </div>
 </section>

@@ -4,10 +4,12 @@ import { AppPageSize } from '../../../../core/models/app-preferences.model';
 import { AppPreferencesService } from '../../../../core/services/app-preferences.service';
 import { ThemeService } from '../../../../core/services/theme.service';
 import { UI_PRIMENG } from '../../../../shared/ui/ui-primeng';
+import { SectionCard } from "../../../../shared/components/section-card/section-card";
+import { PageHeader } from "../../../../shared/components/page-header/page-header";
 
 @Component({
   selector: 'app-settings-page',
-  imports: [...UI_PRIMENG],
+  imports: [...UI_PRIMENG, SectionCard, PageHeader],
   templateUrl: './settings-page.html',
   styleUrl: './settings-page.scss',
 })

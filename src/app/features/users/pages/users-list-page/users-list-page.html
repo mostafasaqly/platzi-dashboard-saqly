@@ -1,10 +1,8 @@
 <section class="users-page">
-  <div class="users-page__header">
-    <div>
-      <h1>Users</h1>
-      <p>Manage users, roles, and account records.</p>
-    </div>
-
+  <app-page-header
+    title="Users"
+    description="Manage users, roles, and account records."
+  >
     <button
       pButton
       type="button"
@@ -12,9 +10,9 @@
       icon="pi pi-plus"
       (click)="goToCreate()"
     ></button>
-  </div>
+  </app-page-header>
 
-  <p-card class="users-toolbar">
+  <app-section-card>
     <div class="users-field">
       <label for="userSearch">Search</label>
       <input
@@ -25,12 +23,12 @@
         placeholder="Search by name, email, or role"
       />
     </div>
-  </p-card>
+  </app-section-card>
 
   @if (usersFacade.isLoading()) {
     <div class="users-grid">
       @for (item of [1, 2, 3, 4, 5, 6]; track item) {
-        <p-card class="user-card">
+        <app-section-card>
           <div class="user-card__skeleton">
             <p-skeleton shape="circle" size="4rem" />
             <div>
@@ -39,16 +37,17 @@
               <p-skeleton width="8rem" height=".9rem" />
             </div>
           </div>
-        </p-card>
+        </app-section-card>
       }
     </div>
   } @else if (usersFacade.hasError()) {
-    <p-card class="users-state-card">
-      <div class="users-state">
-        <i class="pi pi-exclamation-triangle"></i>
-        <h2>Failed to load users</h2>
-        <p>{{ usersFacade.listState().errorMessage }}</p>
-
+    <app-section-card>
+      <app-state-card
+        tone="error"
+        icon="pi pi-exclamation-triangle"
+        title="Failed to load users"
+        [description]="usersFacade.listState().errorMessage || 'Unexpected error.'"
+      >
         <button
           pButton
           type="button"
@@ -56,20 +55,21 @@
           icon="pi pi-refresh"
           (click)="usersFacade.loadUsers()"
         ></button>
-      </div>
-    </p-card>
+      </app-state-card>
+    </app-section-card>
   } @else if (usersFacade.isEmpty()) {
-    <p-card class="users-state-card">
-      <div class="users-state">
-        <i class="pi pi-inbox"></i>
-        <h2>No users found</h2>
-        <p>Create a user or change the search term.</p>
-      </div>
-    </p-card>
+    <app-section-card>
+      <app-state-card
+        tone="empty"
+        icon="pi pi-inbox"
+        title="No users found"
+        description="Create a user or change the search term."
+      />
+    </app-section-card>
   } @else {
     <div class="users-grid">
       @for (user of usersFacade.filteredUsers(); track trackByUserId($index, user)) {
-        <p-card class="user-card">
+        <app-section-card>
           <div class="user-card__top">
             <p-avatar
               [image]="usersFacade.avatarPreview(user.avatar)"
@@ -110,10 +110,10 @@
               [outlined]="true"
               size="small"
               [loading]="usersFacade.isSubmitting()"
-              (click)="deleteUser(user)"
+              (click)="requestDelete($event, user)"
             ></button>
           </div>
-        </p-card>
+        </app-section-card>
       }
     </div>
   }

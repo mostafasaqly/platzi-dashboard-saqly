@@ -1,195 +1,64 @@
 .categories-page {
   display: grid;
-  gap: 1.5rem;
-
-  &__header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-
-    h1 {
-      margin: 0;
-      font-size: 2rem;
-      color: var(--text-strong);
-    }
-
-    p {
-      margin: 0.4rem 0 0;
-      color: var(--text-muted);
-      font-size: 1rem;
-    }
-  }
+  gap: var(--page-gap);
 }
 
-:host ::ng-deep .categories-toolbar,
-:host ::ng-deep .category-card,
-:host ::ng-deep .categories-state-card {
-  border: 1px solid var(--surface-border);
-  border-radius: var(--radius-xl);
-  background: var(--surface-0);
-  box-shadow: var(--shadow-sm);
-}
-
-:host ::ng-deep .categories-toolbar .p-card-body,
-:host ::ng-deep .category-card .p-card-body,
-:host ::ng-deep .categories-state-card .p-card-body {
-  padding: 1.25rem;
-}
-
-.categories-toolbar {
-  &__content {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  &__meta {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    font-weight: 600;
-  }
-}
-
-.categories-search {
-  flex: 1 1 24rem;
+.categories-field {
   display: grid;
   gap: 0.5rem;
 
   label {
-    color: var(--text-strong);
-    font-size: 0.95rem;
-    font-weight: 700;
-  }
-
-  .p-input-icon-left,
-  input {
-    width: 100%;
+    color: var(--text-soft);
+    font-size: 0.9rem;
+    font-weight: 600;
   }
 }
 
 .categories-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-  gap: 1.25rem;
-  align-items: stretch;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
 }
 
 .category-card {
-  height: 100%;
-
-  :host ::ng-deep & .p-card-body {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
   &__media {
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-    border-radius: 1rem;
-    background: var(--surface-1);
-    border: 1px solid var(--surface-border);
+    margin-bottom: 1rem;
 
     img {
       width: 100%;
-      height: 100%;
-      display: block;
+      height: 12rem;
       object-fit: cover;
+      border-radius: var(--radius-lg);
+      background: var(--surface-1);
+      border: 1px solid var(--surface-border);
     }
   }
 
-  &__body {
-    padding-top: 1rem;
-    flex: 1 1 auto;
+  &__content {
+    display: grid;
+    gap: 1rem;
 
-    h2 {
-      margin: 0;
+    strong {
       color: var(--text-strong);
-      font-size: 1.15rem;
-      line-height: 1.4;
-      word-break: break-word;
-      overflow-wrap: anywhere;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      min-height: 3.2rem;
+      font-size: 1rem;
     }
   }
 
   &__actions {
-    margin-top: 1rem;
     display: flex;
-    gap: 0.75rem;
+    gap: 0.625rem;
     flex-wrap: wrap;
-
-    :host ::ng-deep .p-button {
-      min-width: 6rem;
-    }
-  }
-
-  &--loading {
-    :host ::ng-deep .p-card-body {
-      display: block;
-    }
   }
 }
 
-.categories-state {
-  min-height: 18rem;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  gap: 0.75rem;
-
-  i {
-    font-size: 2rem;
-    color: var(--warning-500);
-  }
-
-  h2 {
-    margin: 0;
-    color: var(--text-strong);
-  }
-
-  p {
-    margin: 0;
-    color: var(--text-muted);
-    max-width: 32rem;
+@media (max-width: 1100px) {
+  .categories-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-.categories-paginator {
-  display: flex;
-  justify-content: center;
-}
-
-:host ::ng-deep .categories-paginator .p-paginator {
-  border: 1px solid var(--surface-border);
-  border-radius: var(--radius-xl);
-  background: var(--surface-0);
-  padding: 0.5rem;
-}
-
-@media (max-width: 768px) {
-  .categories-page__header {
-    align-items: stretch;
-  }
-
+@media (max-width: 700px) {
   .categories-grid {
     grid-template-columns: 1fr;
-  }
-
-  .category-card__actions {
-    flex-direction: column;
-
-    :host ::ng-deep .p-button {
-      width: 100%;
-    }
   }
 }

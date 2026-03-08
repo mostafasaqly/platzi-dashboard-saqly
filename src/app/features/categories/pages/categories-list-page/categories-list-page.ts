@@ -1,72 +1,60 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfirmationService } from 'primeng/api';
 
+import { ConfirmService } from '../../../../core/services/confirm.service';
 import { UI_PRIMENG } from '../../../../shared/ui/ui-primeng';
 import { CategoriesFacade } from '../../facades/categories.facade';
 import { Category } from '../../models/category.model';
-import { PaginatorState } from 'primeng/paginator';
-
-interface CategoriesPageChangeEvent {
-  first: number;
-  rows: number;
-}
+import { PageHeader } from '../../../../shared/components/page-header/page-header';
+import { SectionCard } from '../../../../shared/components/section-card/section-card';
+import { StateCard } from '../../../../shared/components/state-card/state-card';
 
 @Component({
-  selector: 'app-categories-page',
-  imports: [...UI_PRIMENG],
+  selector: 'app-categories-list-page',
+  imports: [
+    PageHeader,
+    SectionCard,
+    StateCard,
+    ...UI_PRIMENG,
+  ],
   templateUrl: './categories-list-page.html',
   styleUrl: './categories-list-page.scss',
 })
 export class CategoriesListPage {
   protected readonly categoriesFacade = inject(CategoriesFacade);
+  protected readonly searchValue = signal('');
 
   private readonly router = inject(Router);
-  private readonly confirmationService = inject(ConfirmationService);
+  private readonly confirmService = inject(ConfirmService);
 
   constructor() {
     void this.categoriesFacade.loadCategories();
   }
 
-  protected onSearch(value: string): void {
+  protected onSearchChange(value: string): void {
+    this.searchValue.set(value);
     this.categoriesFacade.setSearchTerm(value);
   }
 
-  protected onPageChange(event: PaginatorState): void {
-  this.categoriesFacade.setPage(event.first ?? 0, event.rows ?? 6);
-}
-
-  protected createCategory(): void {
-    void this.router.navigateByUrl('/categories/new');
+  protected async goToCreate(): Promise<void> {
+    await this.router.navigateByUrl('/categories/new');
   }
 
-  protected editCategory(category: Category): void {
-    void this.router.navigateByUrl(`/categories/${category.id}/edit`);
+  protected async goToEdit(category: Category): Promise<void> {
+    await this.router.navigateByUrl(`/categories/${category.id}/edit`);
   }
 
-  protected confirmDelete(category: Category): void {
-    this.confirmationService.confirm({
-      header: 'Delete Category',
-      message: `Are you sure you want to delete "${category.name}"?`,
-      icon: 'pi pi-exclamation-triangle',
-      acceptLabel: 'Delete',
-      rejectLabel: 'Cancel',
-      acceptButtonStyleClass: 'p-button-danger',
-      accept: () => {
-        void this.categoriesFacade.deleteCategory(category.id);
+  protected requestDelete(event: Event, category: Category): void {
+    this.confirmService.confirmDelete({
+      target: event.currentTarget,
+      entityName: category.name,
+      onAccept: async () => {
+        await this.categoriesFacade.deleteCategory(category.id);
       },
     });
   }
 
-  protected onImageError(event: Event): void {
-    const element = event.target as HTMLImageElement | null;
-    if (!element) return;
-
-    const fallback = '/category-placeholder.png';
-    if (element.src !== fallback) {
-      element.src = fallback;
-      element.onerror = null;
-    }
+  protected trackByCategoryId(_: number, category: Category): number {
+    return category.id;
   }
-
 }

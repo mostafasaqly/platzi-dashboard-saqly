@@ -1,30 +1,6 @@
 .upload-page {
   display: grid;
-  gap: 1.5rem;
-
-  &__header {
-    h1 {
-      margin: 0;
-      font-size: 1.75rem;
-      color: var(--text-strong);
-    }
-
-    p {
-      margin: 0.35rem 0 0;
-      color: var(--text-muted);
-    }
-  }
-}
-
-:host ::ng-deep .upload-card {
-  border: 1px solid var(--surface-border);
-  border-radius: var(--radius-xl);
-  background: var(--surface-0);
-  box-shadow: var(--shadow-sm);
-}
-
-:host ::ng-deep .upload-card .p-card-body {
-  padding: 1.5rem;
+  gap: var(--page-gap);
 }
 
 .upload-form {

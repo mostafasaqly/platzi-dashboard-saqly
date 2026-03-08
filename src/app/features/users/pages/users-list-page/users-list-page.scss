@@ -1,40 +1,6 @@
 .users-page {
   display: grid;
-  gap: 1.5rem;
-
-  &__header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-
-    h1 {
-      margin: 0;
-      font-size: 1.75rem;
-      color: var(--text-strong);
-    }
-
-    p {
-      margin: 0.35rem 0 0;
-      color: var(--text-muted);
-    }
-  }
-}
-
-:host ::ng-deep .users-toolbar,
-:host ::ng-deep .user-card,
-:host ::ng-deep .users-state-card {
-  border: 1px solid var(--surface-border);
-  border-radius: var(--radius-xl);
-  background: var(--surface-0);
-  box-shadow: var(--shadow-sm);
-}
-
-:host ::ng-deep .users-toolbar .p-card-body,
-:host ::ng-deep .user-card .p-card-body,
-:host ::ng-deep .users-state-card .p-card-body {
-  padding: 1.25rem;
+  gap: var(--page-gap);
 }
 
 .users-field {
@@ -99,29 +65,6 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-  }
-}
-
-.users-state {
-  min-height: 18rem;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  gap: 0.75rem;
-
-  i {
-    font-size: 2rem;
-    color: var(--warning-500);
-  }
-
-  h2 {
-    margin: 0;
-    color: var(--text-strong);
-  }
-
-  p {
-    margin: 0;
-    color: var(--text-muted);
   }
 }
 

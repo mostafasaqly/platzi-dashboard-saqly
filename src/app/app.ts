@@ -5,10 +5,11 @@ import { ToastModule } from 'primeng/toast';
 import { APP_SETTINGS } from './core/config/app.settings';
 import { ThemeService } from './core/services/theme.service';
 import { AuthFacade } from './features/auth/facades/auth.facade';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ToastModule],
+  imports: [RouterOutlet, ToastModule, ConfirmDialogModule],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

@@ -1,0 +1,41 @@
+.state-card {
+  min-height: 18rem;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  gap: 0.75rem;
+
+  i {
+    font-size: 2rem;
+  }
+
+  h2 {
+    margin: 0;
+    color: var(--text-strong);
+  }
+
+  p {
+    margin: 0;
+    color: var(--text-muted);
+    max-width: 32rem;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &--error i {
+    color: var(--danger-500);
+  }
+
+  &--empty i {
+    color: var(--warning-500);
+  }
+
+  &--info i {
+    color: var(--brand-600);
+  }
+}

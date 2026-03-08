@@ -1,0 +1,9 @@
+<div class="state-card" [class]="'state-card state-card--' + tone()">
+  <i [class]="icon()"></i>
+  <h2>{{ title() }}</h2>
+  <p>{{ description() }}</p>
+
+  <div class="state-card__actions">
+    <ng-content />
+  </div>
+</div>

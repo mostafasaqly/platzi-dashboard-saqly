@@ -1,51 +1,6 @@
 .dashboard-page {
   display: grid;
-  gap: 1.5rem;
-
-  &__header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-
-    h1 {
-      margin: 0;
-      font-size: 1.75rem;
-      color: var(--text-strong);
-    }
-
-    p {
-      margin: 0.4rem 0 0;
-      color: var(--text-muted);
-    }
-  }
-}
-
-.dashboard-screen-loader {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: grid;
-  place-items: center;
-  background: color-mix(in srgb, var(--surface-0) 45%, transparent);
-  backdrop-filter: blur(2px);
-}
-
-.dashboard-screen-loader__box {
-  width: 5rem;
-  height: 5rem;
-  border-radius: 1rem;
-  display: grid;
-  place-items: center;
-  background: var(--surface-0);
-  border: 1px solid var(--surface-border);
-  box-shadow: var(--shadow-md, 0 12px 24px rgba(0, 0, 0, 0.12));
-
-  i {
-    font-size: 1.75rem;
-    color: var(--brand-500);
-  }
+  gap: var(--page-gap);
 }
 
 .dashboard-stats {
@@ -108,45 +63,6 @@
   &--info .dashboard-stat__icon {
     background: color-mix(in srgb, #0891b2 14%, white);
     color: #0891b2;
-  }
-}
-
-:host ::ng-deep .dashboard-card,
-:host ::ng-deep .dashboard-panel {
-  border: 1px solid var(--surface-border);
-  border-radius: var(--radius-xl);
-  background: var(--surface-0);
-  box-shadow: var(--shadow-sm);
-}
-
-:host ::ng-deep .dashboard-card .p-card-body,
-:host ::ng-deep .dashboard-panel .p-card-body {
-  padding: 1.25rem;
-}
-
-.dashboard-panel {
-  &__head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1rem;
-
-    h2 {
-      margin: 0;
-      font-size: 1.1rem;
-      color: var(--text-strong);
-    }
-
-    p {
-      margin: 0.3rem 0 0;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-  }
-
-  &--error {
-    border-color: color-mix(in srgb, var(--danger-500) 25%, white);
   }
 }
 
@@ -216,7 +132,7 @@
   align-items: center;
   gap: 0.625rem;
   min-height: 2.75rem;
-  padding: 1rem 5rem;
+  padding: 0.5rem 0.75rem;
   border: 1px solid var(--surface-border);
   border-radius: 999px;
   background: var(--surface-1);
@@ -233,30 +149,6 @@
     color: var(--text-soft);
     font-size: 0.88rem;
     font-weight: 600;
-  }
-}
-
-.dashboard-error,
-.dashboard-empty {
-  min-height: 18rem;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  gap: 0.75rem;
-
-  i {
-    font-size: 2rem;
-    color: var(--warning-500);
-  }
-
-  h2 {
-    margin: 0;
-    color: var(--text-strong);
-  }
-
-  p {
-    margin: 0;
-    color: var(--text-muted);
   }
 }
 

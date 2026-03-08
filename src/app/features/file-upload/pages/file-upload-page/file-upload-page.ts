@@ -2,10 +2,12 @@ import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 
 import { UI_PRIMENG } from '../../../../shared/ui/ui-primeng';
 import { FileUploadFacade } from '../../facades/file-upload.facade';
+import { SectionCard } from "../../../../shared/components/section-card/section-card";
+import { PageHeader } from "../../../../shared/components/page-header/page-header";
 
 @Component({
   selector: 'app-file-upload-page',
-  imports: [...UI_PRIMENG],
+  imports: [...UI_PRIMENG, SectionCard, PageHeader],
   templateUrl: './file-upload-page.html',
   styleUrl: './file-upload-page.scss',
 })

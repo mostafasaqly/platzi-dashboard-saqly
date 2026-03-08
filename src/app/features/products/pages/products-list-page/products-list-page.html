@@ -1,10 +1,8 @@
 <section class="products-page">
-  <div class="products-page__header">
-    <div>
-      <h1>Products</h1>
-      <p>Manage product catalog, search, filters, and CRUD workflows.</p>
-    </div>
-
+  <app-page-header
+    title="Products"
+    description="Manage product catalog, search, filters, and CRUD workflows."
+  >
     <button
       pButton
       type="button"
@@ -12,9 +10,9 @@
       label="New Product"
       (click)="goToCreate()"
     ></button>
-  </div>
+  </app-page-header>
 
-  <p-card styleClass="products-toolbar">
+  <app-section-card>
     <div class="products-toolbar__grid">
       <div class="products-field">
         <label for="productSearch">Search</label>
@@ -63,12 +61,12 @@
         ></button>
       </div>
     </div>
-  </p-card>
+  </app-section-card>
 
   @if (productsFacade.isLoading()) {
     <div class="products-grid">
       @for (item of [1, 2, 3, 4, 5, 6]; track item) {
-        <p-card styleClass="product-card product-card--loading">
+        <app-section-card>
           <p-skeleton width="100%" height="12rem" />
           <div style="height: .75rem;"></div>
           <p-skeleton width="70%" height="1rem" />
@@ -76,16 +74,17 @@
           <p-skeleton width="40%" height="1rem" />
           <div style="height: .75rem;"></div>
           <p-skeleton width="100%" height="2.5rem" />
-        </p-card>
+        </app-section-card>
       }
     </div>
   } @else if (productsFacade.hasError()) {
-    <p-card styleClass="products-state-card">
-      <div class="products-state">
-        <i class="pi pi-exclamation-triangle"></i>
-        <h2>Failed to load products</h2>
-        <p>{{ productsFacade.listState().errorMessage }}</p>
-
+    <app-section-card>
+      <app-state-card
+        tone="error"
+        icon="pi pi-exclamation-triangle"
+        title="Failed to load products"
+        [description]="productsFacade.listState().errorMessage || 'Unexpected error.'"
+      >
         <button
           pButton
           type="button"
@@ -93,20 +92,21 @@
           icon="pi pi-refresh"
           (click)="productsFacade.refresh()"
         ></button>
-      </div>
-    </p-card>
+      </app-state-card>
+    </app-section-card>
   } @else if (productsFacade.isEmpty()) {
-    <p-card styleClass="products-state-card">
-      <div class="products-state">
-        <i class="pi pi-inbox"></i>
-        <h2>No products found</h2>
-        <p>Try changing your filters or create a new product.</p>
-      </div>
-    </p-card>
+    <app-section-card>
+      <app-state-card
+        tone="empty"
+        icon="pi pi-inbox"
+        title="No products found"
+        description="Try changing your filters or create a new product."
+      />
+    </app-section-card>
   } @else {
     <div class="products-grid">
       @for (product of productsFacade.products(); track trackByProductId($index, product)) {
-        <p-card styleClass="product-card">
+        <app-section-card>
           <div class="product-card__media">
             <img
               [src]="productsFacade.imagePreview(product.images)"
@@ -143,11 +143,11 @@
                 size="small"
                 [outlined]="true"
                 [loading]="productsFacade.isSubmitting()"
-                (click)="deleteProduct(product)"
+                (click)="requestDelete($event, product)"
               ></button>
             </div>
           </div>
-        </p-card>
+        </app-section-card>
       }
     </div>
 

@@ -1,10 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { UI_PRIMENG } from '../../../../shared/ui/ui-primeng';
 import { DashboardFacade } from '../../facades/dashboard.facade';
+import { SectionCard } from "../../../../shared/components/section-card/section-card";
+import { StateCard } from "../../../../shared/components/state-card/state-card";
+import { PageHeader } from "../../../../shared/components/page-header/page-header";
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [...UI_PRIMENG],
+  imports: [...UI_PRIMENG, SectionCard, StateCard, PageHeader],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.scss',
 })

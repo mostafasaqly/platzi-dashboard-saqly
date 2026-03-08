@@ -34,6 +34,7 @@ export class FileUploadFacade {
   readonly hasUploadedFile = computed(() => !!this._uploadedFile());
 
   selectFile(file: File | null): void {
+    this.revokePreviewIfNeeded();
     this.resetResultOnly();
     this._selectedFile.set(file);
 

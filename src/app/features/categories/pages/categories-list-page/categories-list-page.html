@@ -1,132 +1,108 @@
 <section class="categories-page">
-  <div class="categories-page__header">
-    <div>
-      <h1>Categories</h1>
-      <p>Manage category catalog and classification structure.</p>
-    </div>
-
+  <app-page-header
+    title="Categories"
+    description="Manage category catalog and classification structure."
+  >
     <button
       pButton
       type="button"
       label="New Category"
       icon="pi pi-plus"
-      (click)="createCategory()"
+      (click)="goToCreate()"
     ></button>
-  </div>
+  </app-page-header>
 
-  <p-confirmDialog />
-
-  <p-card class="categories-toolbar">
-    <div class="categories-toolbar__content">
-      <div class="categories-search">
-        <label for="category-search">Search</label>
-        <span class="p-input-icon-left">
-          <input
-            id="category-search"
-            pInputText
-            type="text"
-            [value]="categoriesFacade.searchTerm()"
-            placeholder="Search by category name"
-            (input)="onSearch(($any($event.target)).value)"
-          />
-        </span>
-      </div>
-
-      <div class="categories-toolbar__meta">
-        <span>{{ categoriesFacade.totalRecords() }} categories</span>
-      </div>
+  <app-section-card>
+    <div class="categories-field">
+      <label for="categorySearch">Search</label>
+      <input
+        id="categorySearch"
+        pInputText
+        [ngModel]="searchValue()"
+        (ngModelChange)="onSearchChange($event)"
+        placeholder="Search by category name"
+      />
     </div>
-  </p-card>
+  </app-section-card>
 
   @if (categoriesFacade.isLoading()) {
     <div class="categories-grid">
       @for (item of [1, 2, 3, 4, 5, 6]; track item) {
-        <p-card class="category-card category-card--loading">
-          <p-skeleton width="100%" height="12rem" borderRadius="1rem" />
-          <div style="height: 1rem"></div>
-          <p-skeleton width="70%" height="1.2rem" />
-          <div style="height: 1rem"></div>
-          <div class="category-card__actions">
-            <p-skeleton width="5rem" height="2.25rem" />
-            <p-skeleton width="5rem" height="2.25rem" />
-          </div>
-        </p-card>
+        <app-section-card>
+          <p-skeleton width="100%" height="12rem" />
+          <div style="height: .75rem;"></div>
+          <p-skeleton width="60%" height="1rem" />
+          <div style="height: .75rem;"></div>
+          <p-skeleton width="100%" height="2.5rem" />
+        </app-section-card>
       }
     </div>
   } @else if (categoriesFacade.hasError()) {
-    <p-card class="categories-state-card">
-      <div class="categories-state">
-        <i class="pi pi-exclamation-triangle"></i>
-        <h2>Failed to load categories</h2>
-        <p>{{ categoriesFacade.listState().errorMessage }}</p>
+    <app-section-card>
+      <app-state-card
+        tone="error"
+        icon="pi pi-exclamation-triangle"
+        title="Failed to load categories"
+        [description]="categoriesFacade.listState().errorMessage || 'Unexpected error.'"
+      >
         <button
           pButton
           type="button"
-          label="Try again"
+          label="Try Again"
           icon="pi pi-refresh"
           (click)="categoriesFacade.loadCategories()"
         ></button>
-      </div>
-    </p-card>
+      </app-state-card>
+    </app-section-card>
   } @else if (categoriesFacade.isEmpty()) {
-    <p-card class="categories-state-card">
-      <div class="categories-state">
-        <i class="pi pi-inbox"></i>
-        <h2>No categories found</h2>
-        <p>Try a different search term or create a new category.</p>
-      </div>
-    </p-card>
+    <app-section-card>
+      <app-state-card
+        tone="empty"
+        icon="pi pi-inbox"
+        title="No categories found"
+        description="Create a category or change the search term."
+      />
+    </app-section-card>
   } @else {
     <div class="categories-grid">
-      @for (category of categoriesFacade.pagedCategories(); track category.id) {
-        <p-card class="category-card">
+      @for (category of categoriesFacade.filteredCategories(); track trackByCategoryId($index, category)) {
+        <app-section-card>
           <div class="category-card__media">
             <img
               [src]="categoriesFacade.imagePreview(category.image)"
-              [alt]="categoriesFacade.normalizeCategoryName(category.name)"
-              (error)="onImageError($event)"
+              [alt]="category.name"
             />
           </div>
 
-          <div class="category-card__body">
-            <h2 [title]="categoriesFacade.normalizeCategoryName(category.name)">
-              {{ categoriesFacade.normalizeCategoryName(category.name) }}
-            </h2>
-          </div>
+          <div class="category-card__content">
+            <strong>{{ category.name }}</strong>
 
-          <div class="category-card__actions">
-            <button
-              pButton
-              type="button"
-              label="Edit"
-              icon="pi pi-pencil"
-              severity="success"
-              [outlined]="true"
-              (click)="editCategory(category)"
-            ></button>
+            <div class="category-card__actions">
+              <button
+                pButton
+                type="button"
+                label="Edit"
+                icon="pi pi-pencil"
+                [outlined]="true"
+                size="small"
+                (click)="goToEdit(category)"
+              ></button>
 
-            <button
-              pButton
-              type="button"
-              label="Delete"
-              icon="pi pi-trash"
-              severity="danger"
-              [outlined]="true"
-              (click)="confirmDelete(category)"
-            ></button>
+              <button
+                pButton
+                type="button"
+                label="Delete"
+                icon="pi pi-trash"
+                severity="danger"
+                [outlined]="true"
+                size="small"
+                [loading]="categoriesFacade.isSubmitting()"
+                (click)="requestDelete($event, category)"
+              ></button>
+            </div>
           </div>
-        </p-card>
+        </app-section-card>
       }
-    </div>
-
-    <div class="categories-paginator">
-      <p-paginator
-        [first]="categoriesFacade.first()"
-        [rows]="categoriesFacade.rows()"
-        [totalRecords]="categoriesFacade.totalRecords()"
-        [rowsPerPageOptions]="[6, 9, 12, 18]"
-        (onPageChange)="onPageChange($event)"
-      ></p-paginator>
     </div>
   }
 </section>

@@ -1,0 +1,27 @@
+.section-card {
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-xl);
+  background: var(--surface-0);
+  box-shadow: var(--shadow-sm);
+
+  &__head {
+    padding: var(--card-padding);
+    padding-bottom: 0.75rem;
+
+    h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--text-strong);
+    }
+
+    p {
+      margin: 0.35rem 0 0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  }
+
+  &__body {
+    padding: var(--card-padding);
+  }
+}
