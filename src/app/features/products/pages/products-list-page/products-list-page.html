@@ -1,0 +1,181 @@
+<section class="products-page">
+  <div class="products-page__header">
+    <div>
+      <h1>Products</h1>
+      <p>Manage product catalog, search, filters, and CRUD workflows.</p>
+    </div>
+
+    <button
+      pButton
+      type="button"
+      icon="pi pi-plus"
+      label="New Product"
+      (click)="goToCreate()"
+    ></button>
+  </div>
+
+  <p-card styleClass="products-toolbar">
+    <div class="products-toolbar__grid">
+      <div class="products-field">
+        <label for="productSearch">Search</label>
+        <input
+          id="productSearch"
+          pInputText
+          [ngModel]="searchValue()"
+          (ngModelChange)="searchValue.set($event)"
+          placeholder="Search by title"
+        />
+      </div>
+
+      <div class="products-field">
+        <label for="productCategory">Category</label>
+        <select
+          id="productCategory"
+          class="products-native-select"
+          [ngModel]="productsFacade.selectedCategoryId()"
+          (ngModelChange)="onCategoryChange($event)"
+        >
+          <option [ngValue]="null">All Categories</option>
+          @for (category of productsFacade.categories(); track category.id) {
+            <option [ngValue]="category.id">{{ category.name }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="products-toolbar__actions">
+        <button
+          pButton
+          type="button"
+          label="Apply"
+          icon="pi pi-search"
+          [loading]="productsFacade.isLoading()"
+          (click)="onSearch()"
+        ></button>
+
+        <button
+          pButton
+          type="button"
+          label="Reset"
+          icon="pi pi-filter-slash"
+          severity="secondary"
+          [outlined]="true"
+          (click)="onReset()"
+        ></button>
+      </div>
+    </div>
+  </p-card>
+
+  @if (productsFacade.isLoading()) {
+    <div class="products-grid">
+      @for (item of [1, 2, 3, 4, 5, 6]; track item) {
+        <p-card styleClass="product-card product-card--loading">
+          <p-skeleton width="100%" height="12rem" />
+          <div style="height: .75rem;"></div>
+          <p-skeleton width="70%" height="1rem" />
+          <div style="height: .5rem;"></div>
+          <p-skeleton width="40%" height="1rem" />
+          <div style="height: .75rem;"></div>
+          <p-skeleton width="100%" height="2.5rem" />
+        </p-card>
+      }
+    </div>
+  } @else if (productsFacade.hasError()) {
+    <p-card styleClass="products-state-card">
+      <div class="products-state">
+        <i class="pi pi-exclamation-triangle"></i>
+        <h2>Failed to load products</h2>
+        <p>{{ productsFacade.listState().errorMessage }}</p>
+
+        <button
+          pButton
+          type="button"
+          label="Try Again"
+          icon="pi pi-refresh"
+          (click)="productsFacade.refresh()"
+        ></button>
+      </div>
+    </p-card>
+  } @else if (productsFacade.isEmpty()) {
+    <p-card styleClass="products-state-card">
+      <div class="products-state">
+        <i class="pi pi-inbox"></i>
+        <h2>No products found</h2>
+        <p>Try changing your filters or create a new product.</p>
+      </div>
+    </p-card>
+  } @else {
+    <div class="products-grid">
+      @for (product of productsFacade.products(); track trackByProductId($index, product)) {
+        <p-card styleClass="product-card">
+          <div class="product-card__media">
+            <img
+              [src]="productsFacade.imagePreview(product.images)"
+              [alt]="product.title"
+            />
+          </div>
+
+          <div class="product-card__content">
+            <div class="product-card__top">
+              <strong>{{ product.title }}</strong>
+              <p-tag [value]="'$' + product.price"></p-tag>
+            </div>
+
+            <p class="product-card__category">{{ product.category.name }}</p>
+            <p class="product-card__description">{{ product.description }}</p>
+
+            <div class="product-card__actions">
+              <button
+                pButton
+                type="button"
+                label="Edit"
+                icon="pi pi-pencil"
+                size="small"
+                [outlined]="true"
+                (click)="goToEdit(product)"
+              ></button>
+
+              <button
+                pButton
+                type="button"
+                label="Delete"
+                icon="pi pi-trash"
+                severity="danger"
+                size="small"
+                [outlined]="true"
+                [loading]="productsFacade.isSubmitting()"
+                (click)="deleteProduct(product)"
+              ></button>
+            </div>
+          </div>
+        </p-card>
+      }
+    </div>
+
+    <div class="products-pagination">
+      <button
+        pButton
+        type="button"
+        label="Previous"
+        icon="pi pi-angle-left"
+        severity="secondary"
+        [outlined]="true"
+        [disabled]="productsFacade.page() === 1 || productsFacade.isLoading()"
+        (click)="previousPage()"
+      ></button>
+
+      <span>Page {{ productsFacade.page() }}</span>
+
+      <button
+        pButton
+        type="button"
+        label="Next"
+        icon="pi pi-angle-right"
+        iconPos="right"
+        severity="secondary"
+        [outlined]="true"
+        [disabled]="productsFacade.isLoading() || !productsFacade.hasItems()"
+        (click)="nextPage()"
+      ></button>
+    </div>
+  }
+</section>
