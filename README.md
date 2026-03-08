@@ -340,7 +340,7 @@ http://localhost:4200
 
 # Phase Roadmap
 
-### Phase 1 --- Finished
+### Phase 1 Foundation & Architecture --- Finished
 
 Foundation & Architecture
 
@@ -352,7 +352,7 @@ Foundation & Architecture
 
 ---
 
-### Phase 2 --- Finished
+### Phase 2 — Core Infrastructure --- Finished
 
 Authentication System
 
@@ -365,6 +365,16 @@ Authentication System
 
 ### Phase 3 --- Finished
 
+Auth Module
+
+* Login
+* service
+* interceptor
+
+---
+
+### Phase 4 --- Finished
+
 Dashboard Module
 
 * analytics widgets
@@ -373,7 +383,7 @@ Dashboard Module
 
 ---
 
-### Phase 4 --- Finished
+### Phase 4
 
 Products Management
 
@@ -384,7 +394,7 @@ Products Management
 
 ---
 
-### Phase 5
+### Phase 6
 
 Users & Categories
 
@@ -393,7 +403,7 @@ Users & Categories
 
 ---
 
-### Phase 6
+### Phase 7
 
 File Upload System
 
@@ -403,7 +413,7 @@ File Upload System
 
 ---
 
-### Phase 7
+### Phase 8
 
 Settings Module
 
