@@ -14,7 +14,7 @@
     ></button>
   </div>
 
-  <p-card styleClass="products-toolbar">
+  <p-card class="products-toolbar">
     <div class="products-toolbar__grid">
       <div class="products-field">
         <label for="productSearch">Search</label>
@@ -68,7 +68,7 @@
   @if (productsFacade.isLoading()) {
     <div class="products-grid">
       @for (item of [1, 2, 3, 4, 5, 6]; track item) {
-        <p-card styleClass="product-card product-card--loading">
+        <p-card class="product-card product-card--loading">
           <p-skeleton width="100%" height="12rem" />
           <div style="height: .75rem;"></div>
           <p-skeleton width="70%" height="1rem" />
@@ -80,7 +80,7 @@
       }
     </div>
   } @else if (productsFacade.hasError()) {
-    <p-card styleClass="products-state-card">
+    <p-card class="products-state-card">
       <div class="products-state">
         <i class="pi pi-exclamation-triangle"></i>
         <h2>Failed to load products</h2>
@@ -96,7 +96,7 @@
       </div>
     </p-card>
   } @else if (productsFacade.isEmpty()) {
-    <p-card styleClass="products-state-card">
+    <p-card class="products-state-card">
       <div class="products-state">
         <i class="pi pi-inbox"></i>
         <h2>No products found</h2>
@@ -106,7 +106,7 @@
   } @else {
     <div class="products-grid">
       @for (product of productsFacade.products(); track trackByProductId($index, product)) {
-        <p-card styleClass="product-card">
+        <p-card class="product-card">
           <div class="product-card__media">
             <img
               [src]="productsFacade.imagePreview(product.images)"
